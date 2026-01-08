@@ -1,7 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
+import DataTable from '@/components/DataTable'
 
 const page = () => {
+  
   return (
     <main className='main-container'>
       <section className='home-grid'>
@@ -16,6 +18,7 @@ const page = () => {
 
         </div>
         <p>Trending Coins</p>
+        <DataTable />
       </section>
       <section className='w-full mt-7 space-y-4'>
         <p>Categories</p>
