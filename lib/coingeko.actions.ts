@@ -23,7 +23,7 @@ export async function fetcher<T>(
     const response = await fetch(url, {
         headers: {
             'Content-Type': 'application/json',
-            'x-ch-pro-api-key': API_KEY
+            'x-cg-pro-api-key': API_KEY
         } as Record<string, string>,    
         next: {revalidate}
     });
@@ -32,6 +32,6 @@ export async function fetcher<T>(
         const errorData: CoinGeckoErrorBody = await response.json();
         throw new Error(`Error fetching data from CoinGecko: ${response.status} ${errorData.error} || ${response.statusText}`);
     }
-    
+
     return response.json();
 }
