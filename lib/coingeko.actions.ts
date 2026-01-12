@@ -10,28 +10,32 @@ if (!API_KEY) {
 }
 
 export async function fetcher<T>(
-    endpoint: string,
-    params?: QueryParams,
-    revalidate= 60
+  endpoint: string,
+  params?: QueryParams,
+  revalidate = 60,
 ): Promise<T> {
+  const url = qs.stringifyUrl(
+    {
+      url: `${BASE_URL}${endpoint}`,
+      query: params,
+    },
+    { skipEmptyString: true, skipNull: true },
+  );
 
-    const url = qs.stringifyUrl({
-        url: `${BASE_URL}${endpoint}`,
-        query: params
-    }, {skipEmptyString: true, skipNull: true}); 
+  const response = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      'x-cg-pro-api-key': API_KEY,
+    } as Record<string, string>,
+    next: { revalidate },
+  });
 
-    const response = await fetch(url, {
-        headers: {
-            'Content-Type': 'application/json',
-            'x-cg-pro-api-key': API_KEY
-        } as Record<string, string>,    
-        next: {revalidate}
-    });
+  if (!response.ok) {
+    const errorData: CoinGeckoErrorBody = await response.json();
+    throw new Error(
+      `Error fetching data from CoinGecko: ${response.status} ${errorData.error} || ${response.statusText}`,
+    );
+  }
 
-    if (!response.ok) {
-        const errorData: CoinGeckoErrorBody = await response.json();
-        throw new Error(`Error fetching data from CoinGecko: ${response.status} ${errorData.error} || ${response.statusText}`);
-    }
-
-    return response.json();
+  return response.json();
 }

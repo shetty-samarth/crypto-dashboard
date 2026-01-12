@@ -1,9 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    remotePatterns:[
+    remotePatterns: [
       {
         protocol: 'https',
         hostname: 'assets.coingecko.com',
@@ -11,9 +11,9 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'coin-images.coingecko.com',
-      }
-    ]
-  }
+      },
+    ],
+  },
 };
 
 export default nextConfig;

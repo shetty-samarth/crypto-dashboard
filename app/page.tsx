@@ -1,63 +1,54 @@
-import Image from 'next/image'
-import DataTable from '@/components/DataTable'
+import Image from 'next/image';
+import DataTable from '@/components/DataTable';
 import Link from 'next/link';
-import {fetcher} from '@/lib/coingeko.actions';
 import { TrendingUp, TrendingDown } from 'lucide-react';
-import {formatCurrency} from '@/lib/utils';
 
 const columns: DataTableColumn<TrendingCoin>[] = [
   {
-    header: 'Name', cellClassName: 'name-cell', cell: (coin) => {
+    header: 'Name',
+    cellClassName: 'name-cell',
+    cell: (coin) => {
       const item = coin.item;
       return (
-        <Link href={`/coins/${item.id}`} className='flex items-center gap-3'>
+        <Link href={`/coins/${item.id}`} className="flex items-center gap-3">
           <Image src={item.large} alt={item.name} width={24} height={24} />
           <p>{item.name}</p>
         </Link>
-      )
-    }
+      );
+    },
   },
   {
-    header: '24h Change', cellClassName: 'name-cell', cell: (coin) => {
+    header: '24h Change',
+    cellClassName: 'name-cell',
+    cell: (coin) => {
       const item = coin.item;
       const isTrendingUp = item.data.price_change_percentage_24h.usd >= 0;
       return (
         <p className={isTrendingUp ? 'text-green-500' : 'text-red-500'}>
-          {isTrendingUp ? <TrendingUp width={16} height={16} /> : <TrendingDown width={16} height={16} />}{item.data.price_change_percentage_24h.usd.toFixed(2)}%
+          {isTrendingUp ? (
+            <TrendingUp width={16} height={16} />
+          ) : (
+            <TrendingDown width={16} height={16} />
+          )}
+          {item.data.price_change_percentage_24h.usd.toFixed(2)}%
         </p>
-      )
-    }
+      );
+    },
   },
   {
-    header: 'Price', cellClassName: 'price-cell', cell: (coin) => {
+    header: 'Price',
+    cellClassName: 'price-cell',
+    cell: (coin) => {
       const item = coin.item;
-      return (
-        <p>${item.data.price.toLocaleString()}</p>
-      )
-    }
-  }
-]
+      return <p>${item.data.price.toLocaleString()}</p>;
+    },
+  },
+];
 
-const page = async() => {
-  const coinData = await fetcher<CoinDetailsData>('/coins/bitcoin', {
-    dex_pair_format: 'symbol'
-  });
-
-  const trendingCoins = await fetcher<TrendingCoin[]>('/search/trending', undefined, 300);
+const page = async () => {
   return (
-    <main className='main-container'>
-      <section className='home-grid'>
-        <div id='coin-overview'>
-          <div className='header'>
-            <Image src={coinData.image.large} alt="Bitcoin" width={56} height={56} />
-            <div className='info'>
-              <p>{`${coinData.name} / ${coinData.symbol.toUpperCase()}`}</p>
-              <h1>{formatCurrency(coinData.market_data.current_price.usd)}</h1>
-          </div>
-          </div>
-
-        </div>
-        <p>Trending Coins</p>
+    <main className="main-container">
+      <section className="home-grid">
         <DataTable
           columns={columns}
           data={[
@@ -71,9 +62,9 @@ const page = async() => {
                 large: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png',
                 data: {
                   price: 27000,
-                  price_change_percentage_24h: { usd: -1.23 }
-                }
-              }
+                  price_change_percentage_24h: { usd: -1.23 },
+                },
+              },
             },
             {
               item: {
@@ -85,19 +76,19 @@ const page = async() => {
                 large: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
                 data: {
                   price: 1800,
-                  price_change_percentage_24h: { usd: 2.45 }
-                }
-              }
-            }
+                  price_change_percentage_24h: { usd: 2.45 },
+                },
+              },
+            },
           ]}
           rowKey={(row) => row.item.id}
         />
       </section>
-      <section className='w-full mt-7 space-y-4'>
+      <section className="w-full mt-7 space-y-4">
         <p>Categories</p>
       </section>
     </main>
-  )
-}
+  );
+};
 
-export default page
+export default page;

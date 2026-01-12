@@ -1,8 +1,8 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 /**
@@ -18,17 +18,17 @@ export function formatCurrency(
   value: number | null | undefined,
   currency = 'USD',
   locale = 'en-US',
-  opts?: Intl.NumberFormatOptions
+  opts?: Intl.NumberFormatOptions,
 ): string {
-  if (value == null || !isFinite(value)) return '-'
+  if (value == null || !isFinite(value)) return '-';
 
   const defaultOpts: Intl.NumberFormatOptions = {
     style: 'currency',
     currency,
     maximumFractionDigits: 2,
-  }
+  };
 
-  const formatOpts = { ...defaultOpts, ...(opts ?? {}) }
+  const formatOpts = { ...defaultOpts, ...(opts ?? {}) };
 
-  return new Intl.NumberFormat(locale, formatOpts).format(value)
+  return new Intl.NumberFormat(locale, formatOpts).format(value);
 }
