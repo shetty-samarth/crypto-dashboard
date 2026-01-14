@@ -6,7 +6,11 @@ import Image from 'next/image';
 import DataTable from '../DataTable';
 
 const TrendingCoins = async () => {
-  const trendingCoins = await fetcher<TrendingCoin[]>('/search/trending', undefined, 300);
+  const trendingCoins = await fetcher<{ coins: TrendingCoin[] }>(
+    '/search/trending',
+    undefined,
+    300,
+  );
   console.log('trendingCoins', trendingCoins);
   const columns: DataTableColumn<TrendingCoin>[] = [
     {
@@ -50,43 +54,15 @@ const TrendingCoins = async () => {
     },
   ];
   return (
-    <>
+    <div id="trending-coins">
       <p>Trending Coins</p>
       <DataTable
         columns={columns}
-        data={[
-          {
-            item: {
-              id: 'bitcoin',
-              name: 'Bitcoin',
-              symbol: 'btc',
-              market_cap_rank: 1,
-              thumb: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png',
-              large: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png',
-              data: {
-                price: 27000,
-                price_change_percentage_24h: { usd: -1.23 },
-              },
-            },
-          },
-          {
-            item: {
-              id: 'ethereum',
-              name: 'Ethereum',
-              symbol: 'eth',
-              market_cap_rank: 2,
-              thumb: 'https://assets.coingecko.com/coins/images/279/thumb/ethereum.png',
-              large: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
-              data: {
-                price: 1800,
-                price_change_percentage_24h: { usd: 2.45 },
-              },
-            },
-          },
-        ]}
-        rowKey={(row) => row.item.id}
+        data={trendingCoins.coins.slice(0, 5) || []}
+        rowKey={(coin) => coin.item.id}
+        tableClassName="trending-coins-table"
       />
-    </>
+    </div>
   );
 };
 
