@@ -1,7 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import DataTable from '@/components/DataTable';
 
-
 export const CoinOverViewFallback = () => {
   return (
     <div id="coin-overview-fallback">
@@ -27,7 +26,6 @@ export const CoinOverViewFallback = () => {
     </div>
   );
 };
-
 
 export const TrendingCoinsFallback = () => {
   const skeletonColumns = [
