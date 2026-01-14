@@ -6,7 +6,11 @@ import Image from 'next/image';
 import DataTable from '../DataTable';
 
 const TrendingCoins = async () => {
-  const trendingCoins = await fetcher<{coins: TrendingCoin[]}>('/search/trending', undefined, 300);
+  const trendingCoins = await fetcher<{ coins: TrendingCoin[] }>(
+    '/search/trending',
+    undefined,
+    300,
+  );
   console.log('trendingCoins', trendingCoins);
   const columns: DataTableColumn<TrendingCoin>[] = [
     {
@@ -56,7 +60,7 @@ const TrendingCoins = async () => {
         columns={columns}
         data={trendingCoins.coins.slice(0, 5) || []}
         rowKey={(coin) => coin.item.id}
-        tableClassName='trending-coins-table'
+        tableClassName="trending-coins-table"
       />
     </div>
   );
