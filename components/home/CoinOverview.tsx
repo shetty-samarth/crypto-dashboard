@@ -15,6 +15,7 @@ const CoinOverview = async () => {
           <h1>{formatCurrency(coinData.market_data.current_price.usd)}</h1>
         </div>
       </div>
+      <p>Chart goes below</p>
     </div>
   );
 };

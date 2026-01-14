@@ -61,6 +61,8 @@ const TrendingCoins = async () => {
         data={trendingCoins.coins.slice(0, 5) || []}
         rowKey={(coin) => coin.item.id}
         tableClassName="trending-coins-table"
+        headerCellClassName="py-3!"
+        bodyCellClassName="py-2!"
       />
     </div>
   );
