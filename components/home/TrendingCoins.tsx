@@ -3,6 +3,7 @@ import { TrendingDown, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import DataTable from '../DataTable';
+import { TrendingCoinsFallback } from '../fallback';
 
 const TrendingCoins = async () => {
   try {
@@ -77,12 +78,7 @@ const TrendingCoins = async () => {
     console.error('Failed to load trending coins:', error);
 
     return (
-      <div id="trending-coins">
-        <h4>Trending Coins</h4>
-        <p className="text-sm text-muted-foreground px-5">
-          Unable to load trending coins right now.
-        </p>
-      </div>
+      <TrendingCoinsFallback />
     );
   }
 };
