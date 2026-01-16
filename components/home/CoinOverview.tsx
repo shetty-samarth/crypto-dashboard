@@ -30,7 +30,7 @@ const CoinOverview = async () => {
 
   return (
     <div id="coin-overview">
-      <div className="header">
+      <div className="header py-5">
         <Image src={coinData.image.large} alt={coinData.name} width={56} height={56} />
         <div className="info">
           <p>{`${coinData.name} / ${coinData.symbol.toUpperCase()}`}</p>
