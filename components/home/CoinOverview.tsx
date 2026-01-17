@@ -2,7 +2,7 @@ import { fetcher } from '@/lib/coingeko.actions';
 import Image from 'next/image';
 import { formatCurrency } from '@/lib/utils';
 import { CoinOverViewFallback } from '../fallback';
-// import CandleStickChart from '../CandleStickChart';
+import CandleStickChart from '../CandleStickChart';
 
 const CoinOverview = async () => {
   let coinData: CoinDetailsData | null = null;
@@ -37,7 +37,8 @@ const CoinOverview = async () => {
           <h1>{formatCurrency(coinData.market_data.current_price.usd)}</h1>
         </div>
       </div>
-      {/* <CandleStickChart data={coinOHLCData} coinId="bitcoin" /> */}
+      {/* Change type.d.ts to update CandleStickChart type to accept liveInterval and setLiveInterval props as mandatory */}
+      <CandleStickChart data={coinOHLCData} coinId="bitcoin" />
     </div>
   );
 };
