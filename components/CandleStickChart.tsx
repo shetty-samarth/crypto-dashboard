@@ -4,7 +4,7 @@ import { PERIOD_BUTTONS, PERIOD_CONFIG, getCandlestickConfig, getChartConfig } f
 import { fetcher } from '@/lib/coingeko.actions';
 import { CandlestickSeries, createChart, IChartApi, ISeriesApi } from 'lightweight-charts';
 import { useEffect, useRef, useState, useTransition } from 'react';
-import {convertOHLCData} from '@/lib/utils';
+import { convertOHLCData } from '@/lib/utils';
 import { it } from 'node:test';
 
 const CandleStickChart = ({
@@ -16,11 +16,11 @@ const CandleStickChart = ({
 }: CandlestickChartProps) => {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<IChartApi | null>(null);
-  const candleSeriesRef = useRef<ISeriesApi<"Candlestick"> | null>(null);
+  const candleSeriesRef = useRef<ISeriesApi<'Candlestick'> | null>(null);
 
   const [period, setPeriod] = useState<Period>(initialPeriod);
   const [ohlcData, setOhlcData] = useState<OHLCData[]>(data ?? []);
-  const [isPending, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition();
 
   const handlePeriodChange = (newPeriod: Period) => {
     if (newPeriod === period) return;
@@ -28,7 +28,7 @@ const CandleStickChart = ({
     startTransition(async () => {
       setPeriod(newPeriod);
       await fetchOHLCData(newPeriod);
-    })
+    });
   };
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const CandleStickChart = ({
       ...getChartConfig(height, showwTime),
       width: container.clientWidth,
     });
-    const candleSeries = chart.addSeries(CandlestickSeries, getCandlestickConfig())
+    const candleSeries = chart.addSeries(CandlestickSeries, getCandlestickConfig());
     candleSeries.setData(convertOHLCData(ohlcData));
     chart.timeScale().fitContent();
     chartRef.current = chart;
@@ -49,20 +49,22 @@ const CandleStickChart = ({
     const observer = new ResizeObserver((entries) => {
       if (!entries.length) return;
       chart.applyOptions({ width: entries[0].contentRect.width });
-    })
+    });
     observer.observe(container);
-    
+
     return () => {
       observer.disconnect();
       chart.remove();
       chartRef.current = null;
       candleSeriesRef.current = null;
-    }
+    };
   }, [height, ohlcData, period]);
 
   useEffect(() => {
     if (!candleSeriesRef.current) return;
-    const convertedToSeconds = ohlcData.map(item => [Math.floor(item[0] / 1000), item[1], item[2], item[3], item[4]] as OHLCData);
+    const convertedToSeconds = ohlcData.map(
+      (item) => [Math.floor(item[0] / 1000), item[1], item[2], item[3], item[4]] as OHLCData,
+    );
     const converted = convertOHLCData(convertedToSeconds);
     candleSeriesRef.current.setData(converted);
     chartRef.current?.timeScale().fitContent();
@@ -72,15 +74,15 @@ const CandleStickChart = ({
     const config = PERIOD_CONFIG[period];
     try {
       const newData = await fetcher<OHLCData[]>(`/coins/${coinId}/ohlc`, {
-              vs_currency: 'usd',
-              days: config,
-              precision: 'full',
-            });
+        vs_currency: 'usd',
+        days: config,
+        precision: 'full',
+      });
       setOhlcData(newData ?? []);
     } catch (error) {
       console.error('Error fetching OHLC data:', error);
     }
-  }
+  };
   return (
     <div id="candlestick-chart">
       <div className="chart-header">
@@ -102,7 +104,7 @@ const CandleStickChart = ({
           ))}
         </div>
       </div>
-      <div ref={chartContainerRef} className='chart' style={{height}} />
+      <div ref={chartContainerRef} className="chart" style={{ height }} />
     </div>
   );
 };
