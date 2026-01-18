@@ -5,6 +5,7 @@ import { fetcher } from '@/lib/coingeko.actions';
 import { CandlestickSeries, createChart, IChartApi, ISeriesApi } from 'lightweight-charts';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import {convertOHLCData} from '@/lib/utils';
+import { it } from 'node:test';
 
 const CandleStickChart = ({
   children,
@@ -17,7 +18,6 @@ const CandleStickChart = ({
   const chartRef = useRef<IChartApi | null>(null);
   const candleSeriesRef = useRef<ISeriesApi<"Candlestick"> | null>(null);
 
-  const [loading, setLoading] = useState<boolean>(false);
   const [period, setPeriod] = useState<Period>(initialPeriod);
   const [ohlcData, setOhlcData] = useState<OHLCData[]>(data ?? []);
   const [isPending, startTransition] = useTransition()
@@ -41,11 +41,34 @@ const CandleStickChart = ({
       width: container.clientWidth,
     });
     const candleSeries = chart.addSeries(CandlestickSeries, getCandlestickConfig())
-    candleSeries.setData(convertOHLCData(ohlcData))
-  }, [height]);
+    candleSeries.setData(convertOHLCData(ohlcData));
+    chart.timeScale().fitContent();
+    chartRef.current = chart;
+    candleSeriesRef.current = candleSeries;
+
+    const observer = new ResizeObserver((entries) => {
+      if (!entries.length) return;
+      chart.applyOptions({ width: entries[0].contentRect.width });
+    })
+    observer.observe(container);
+    
+    return () => {
+      observer.disconnect();
+      chart.remove();
+      chartRef.current = null;
+      candleSeriesRef.current = null;
+    }
+  }, [height, ohlcData, period]);
+
+  useEffect(() => {
+    if (!candleSeriesRef.current) return;
+    const convertedToSeconds = ohlcData.map(item => [Math.floor(item[0] / 1000), item[1], item[2], item[3], item[4]] as OHLCData);
+    const converted = convertOHLCData(convertedToSeconds);
+    candleSeriesRef.current.setData(converted);
+    chartRef.current?.timeScale().fitContent();
+  }, [ohlcData, period]);
 
   const fetchOHLCData = async (period: Period) => {
-    setLoading(true);
     const config = PERIOD_CONFIG[period];
     try {
       const newData = await fetcher<OHLCData[]>(`/coins/${coinId}/ohlc`, {
@@ -53,10 +76,9 @@ const CandleStickChart = ({
               days: config,
               precision: 'full',
             });
+      setOhlcData(newData ?? []);
     } catch (error) {
       console.error('Error fetching OHLC data:', error);
-    } finally {
-      setLoading(false);
     }
   }
   return (
@@ -73,7 +95,7 @@ const CandleStickChart = ({
                 console.log(`${value} clicked`);
                 handlePeriodChange(value);
               }}
-              disabled={loading}
+              disabled={isPending}
             >
               {label}
             </button>
