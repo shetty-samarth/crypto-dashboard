@@ -114,7 +114,6 @@ export const PERIOD_CONFIG: Record<Period, number | 'max'> = {
   max: 'max',
 };
 
-
 export const PERIOD_BUTTONS: { value: Period; label: string }[] = [
   { value: 'daily', label: '1D' },
   { value: 'weekly', label: '1W' },

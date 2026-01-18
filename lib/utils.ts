@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { Time } from 'lightweight-charts';  
+import { Time } from 'lightweight-charts';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -33,7 +33,6 @@ export function formatCurrency(
 
   return new Intl.NumberFormat(locale, formatOpts).format(value);
 }
-
 
 export function formatPercentage(change: number | null | undefined): string {
   if (change === null || change === undefined || isNaN(change)) {

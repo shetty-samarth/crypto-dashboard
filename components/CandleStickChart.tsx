@@ -109,7 +109,7 @@ const CandlestickChart = ({
   initialPeriod = 'daily',
   liveOhlcv = null,
   mode = 'historical',
-  liveInterval=undefined,
+  liveInterval = undefined,
   setLiveInterval,
 }: CandlestickChartProps) => {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
