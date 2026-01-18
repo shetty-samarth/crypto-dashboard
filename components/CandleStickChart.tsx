@@ -41,7 +41,10 @@ const CandleStickChart = ({
       width: container.clientWidth,
     });
     const candleSeries = chart.addSeries(CandlestickSeries, getCandlestickConfig());
-    candleSeries.setData(convertOHLCData(ohlcData));
+    const convertedToSeconds = ohlcData.map(
+      (item) => [Math.floor(item[0] / 1000), item[1], item[2], item[3], item[4]] as OHLCData,
+    );
+    candleSeries.setData(convertOHLCData(convertedToSeconds));
     chart.timeScale().fitContent();
     chartRef.current = chart;
     candleSeriesRef.current = candleSeries;
