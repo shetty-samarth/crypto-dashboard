@@ -11,10 +11,13 @@ const Categories = async () => {
       cellClassName: 'category-cell',
     },
     {
-        header: 'Top Gainers',
-        cell: (category) => category.top_3_coins.map((coin)=><Image key={coin} src={coin} alt={coin} width={24} height={24} />),
-        cellClassName: 'top-gainers-cell',
-    }
+      header: 'Top Gainers',
+      cell: (category) =>
+        category.top_3_coins.map((coin) => (
+          <Image key={coin} src={coin} alt={coin} width={24} height={24} />
+        )),
+      cellClassName: 'top-gainers-cell',
+    },
   ];
   return (
     <div id="categories" className="custom-scrollbar">
