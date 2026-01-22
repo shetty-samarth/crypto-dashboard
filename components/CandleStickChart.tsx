@@ -5,7 +5,6 @@ import { fetcher } from '@/lib/coingeko.actions';
 import { CandlestickSeries, createChart, IChartApi, ISeriesApi } from 'lightweight-charts';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { convertOHLCData } from '@/lib/utils';
-import { it } from 'node:test';
 
 const CandleStickChart = ({
   children,
