@@ -1,6 +1,10 @@
 import CoinOverview from '@/components/home/CoinOverview';
 import TrendingCoins from '@/components/home/TrendingCoins';
-import { CoinOverViewFallback, TrendingCoinsFallback, CategoriesFallback } from '@/components/fallback';
+import {
+  CoinOverViewFallback,
+  TrendingCoinsFallback,
+  CategoriesFallback,
+} from '@/components/fallback';
 import { Suspense } from 'react';
 import Categories from '@/components/home/Categories';
 
