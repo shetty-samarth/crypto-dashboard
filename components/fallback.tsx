@@ -85,6 +85,16 @@ export const CategoriesFallback = () => {
         </div>
       ),
     },
+    {
+      header: 'Market Cap',
+      cellClassName: 'category-cell',
+      cell: () => <Skeleton className="h-4 w-32" />,
+    },
+    {
+      header: 'Market Cap Change (24h)',
+      cellClassName: 'category-cell',
+      cell: () => <Skeleton className="h-4 w-32" />,
+    },
   ];
 
   const skeletonData = Array.from({ length: 10 }, (_, i) => ({ id: `skeleton-${i}` }));
