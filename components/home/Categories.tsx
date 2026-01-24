@@ -3,11 +3,11 @@ import DataTable from '../DataTable';
 import Image from 'next/image';
 import { formatCurrency } from '@/lib/utils';
 import { CategoriesFallback } from '../fallback';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 
 const Categories = async () => {
   try {
     const categories = await fetcher<Category[]>('/coins/categories');
-    console.log('Fetched categories:', categories);
     const columns: DataTableColumn<Category>[] = [
       {
         header: 'Category',
@@ -23,14 +23,30 @@ const Categories = async () => {
         cellClassName: 'top-gainers-cell',
       },
       {
+        header: 'Market Cap Change (24h)',
+        cellClassName: 'market-cap-cell',
+        cell: (category) => {
+        const change = category.market_cap_change_24h ?? 0;
+        const isTrendingUp = change >= 0;
+
+        return (
+            <div className={isTrendingUp ? 'text-green-500' : 'text-red-500'}>
+          <p className='flex'>
+            {Math.abs(change).toFixed(2)}%
+            {isTrendingUp ? (
+              <TrendingUp width={16} height={16} />
+            ) : (
+              <TrendingDown width={16} height={16} />
+            )}
+          </p>
+          </div>
+        );
+      },
+    },
+    {
         header: 'Market Cap',
         cellClassName: 'market-cap-cell',
         cell: (category) => formatCurrency(category.market_cap),
-      },
-      {
-        header: 'Market Cap Change (24h)',
-        cellClassName: 'market-cap-cell',
-        cell: (category) => formatCurrency(category.market_cap_change_24h),
       },
     ];
     return (

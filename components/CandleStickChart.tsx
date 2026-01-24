@@ -7,7 +7,7 @@ import { useEffect, useRef, useState, useTransition } from 'react';
 import { convertOHLCData } from '@/lib/utils';
 
 const CandleStickChart = ({
-  children,
+  //children,
   data,
   coinId,
   height = 360,

@@ -49,7 +49,7 @@ const TrendingCoins = async () => {
             ) : (
               <TrendingDown width={16} height={16} />
             )}
-            {change.toFixed(2)}%
+            {Math.abs(change).toFixed(2)}%
           </p>
         );
       },
