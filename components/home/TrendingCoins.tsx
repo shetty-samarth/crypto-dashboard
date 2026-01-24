@@ -43,14 +43,16 @@ const TrendingCoins = async () => {
         const isTrendingUp = change >= 0;
 
         return (
-          <p className={isTrendingUp ? 'text-green-500' : 'text-red-500'}>
-            {isTrendingUp ? (
-              <TrendingUp width={16} height={16} />
-            ) : (
-              <TrendingDown width={16} height={16} />
-            )}
-            {change.toFixed(2)}%
-          </p>
+          <div className={isTrendingUp ? 'text-green-500' : 'text-red-500'}>
+            <p className="flex">
+              {isTrendingUp ? (
+                <TrendingUp width={16} height={16} />
+              ) : (
+                <TrendingDown width={16} height={16} />
+              )}
+              <span className="px-1">{`${Math.abs(change).toFixed(2)}%`}</span>
+            </p>
+          </div>
         );
       },
     },
