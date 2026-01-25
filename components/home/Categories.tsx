@@ -1,7 +1,7 @@
 import { fetcher } from '@/lib/coingeko.actions';
 import DataTable from '../DataTable';
 import Image from 'next/image';
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency, formatPercentage } from '@/lib/utils';
 import { CategoriesFallback } from '../fallback';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 
@@ -32,7 +32,7 @@ const Categories = async () => {
           return (
             <div className={isTrendingUp ? 'text-green-500' : 'text-red-500'}>
               <p className="flex">
-                {Math.abs(change).toFixed(2)}%
+                {formatPercentage(change)}
                 {isTrendingUp ? (
                   <TrendingUp width={16} height={16} />
                 ) : (

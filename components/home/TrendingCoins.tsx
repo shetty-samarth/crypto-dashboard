@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import DataTable from '../DataTable';
 import { TrendingCoinsFallback } from '../fallback';
+import { formatPercentage } from '@/lib/utils';
 
 const TrendingCoins = async () => {
   let trendingCoins: { coins: TrendingCoin[] } | null = null;
@@ -50,7 +51,7 @@ const TrendingCoins = async () => {
               ) : (
                 <TrendingDown width={16} height={16} />
               )}
-              <span className="px-1">{`${Math.abs(change).toFixed(2)}%`}</span>
+              <span className="px-1">{formatPercentage(change)}</span>
             </p>
           </div>
         );
