@@ -3,6 +3,8 @@ import { fetcher } from '@/lib/coingeko.actions';
 import Image from 'next/image';
 import Link from 'next/link';
 import DataTable from '@/components/DataTable';
+import { TrendingUp, TrendingDown } from 'lucide-react';
+import { formatCurrency } from '@/lib/utils';
 
 const Coins = async ({ searchParams }: NextPageProps) => {
   const { page } = await searchParams;
@@ -33,7 +35,7 @@ const Coins = async ({ searchParams }: NextPageProps) => {
       header: 'Token',
       cellClassName: 'token-cell',
       cell: (coin) => (
-        <div className="token-info">
+        <div className="token-info flex">
           <Image
             src={coin.image}
             alt={coin.name}
@@ -46,6 +48,42 @@ const Coins = async ({ searchParams }: NextPageProps) => {
           </p>
         </div>
       ),
+    },
+    {
+      header: 'Price',
+      cellClassName: 'name-cell',
+      cell: (coin) => <p>{formatCurrency(coin.current_price)}</p>,
+    },
+    {
+      header: 'Price Change 24h',
+      cellClassName: 'name-cell',
+      cell: (coin) => {
+        const change = coin.price_change_percentage_24h ?? 0;
+        const isTrendingUp = change >= 0;
+
+        return (
+          <div className={isTrendingUp ? 'text-green-500' : 'text-red-500'}>
+            <p className="flex">
+              <span className="px-1">{coin.price_change_percentage_24h?.toFixed(2)}%</span>
+              {isTrendingUp ? (
+                <TrendingUp width={16} height={16} />
+              ) : (
+                <TrendingDown width={16} height={16} />
+              )}
+            </p>
+          </div>
+        );
+      },
+    },
+    {
+      header: 'Market Cap',
+      cellClassName: 'name-cell',
+      cell: (coin) => <p>{formatCurrency(coin.market_cap)}</p>,
+    },
+    {
+      header: 'Volume (24h)',
+      cellClassName: 'name-cell',
+      cell: (coin) => <p>{formatCurrency(coin.total_volume)}</p>,
     },
   ];
   return (
