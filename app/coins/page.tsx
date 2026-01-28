@@ -2,6 +2,7 @@ import React from 'react';
 import { fetcher } from '@/lib/coingeko.actions';
 import Image from 'next/image';
 import Link from 'next/link';
+import DataTable from '@/components/DataTable';
 
 const Coins = async ({ searchParams }: NextPageProps) => {
   const { page } = await searchParams;
@@ -47,7 +48,14 @@ const Coins = async ({ searchParams }: NextPageProps) => {
       ),
     },
   ];
-  return <div>All Coins</div>;
+  return (
+    <main id="coins-page">
+      <div className="content">
+        <h4>All Coins</h4>
+        <DataTable columns={columns} data={coinsData} rowKey={(coin) => coin.id} />
+      </div>
+    </main>
+  );
 };
 
 export default Coins;
