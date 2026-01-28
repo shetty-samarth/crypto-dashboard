@@ -5,6 +5,7 @@ import Link from 'next/link';
 import DataTable from '@/components/DataTable';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
+import CoinPagination from '@/components/CoinsPagination';
 
 const Coins = async ({ searchParams }: NextPageProps) => {
   const { page } = await searchParams;
@@ -91,6 +92,7 @@ const Coins = async ({ searchParams }: NextPageProps) => {
       <div className="content">
         <h4>All Coins</h4>
         <DataTable columns={columns} data={coinsData} rowKey={(coin) => coin.id} />
+        <CoinPagination />
       </div>
     </main>
   );
