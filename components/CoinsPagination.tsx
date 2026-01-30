@@ -26,7 +26,7 @@ const CoinsPagination = ({ totalPages, currentPage, hasMorePages }: Pagination) 
             className={currentPage <= 1 ? 'control-disabled' : 'control-button'}
           />
         </PaginationItem>
-<div className="pagination-pages">
+        <div className="pagination-pages">
           {pageNumbers.map((page, index) => {
             return (
               <PaginationItem key={index}>
@@ -39,12 +39,14 @@ const CoinsPagination = ({ totalPages, currentPage, hasMorePages }: Pagination) 
                     })}
                     isActive={page === currentPage}
                     onClick={() => handlePageChange(page as number)}
-                  >{page}</PaginationLink>
+                  >
+                    {page}
+                  </PaginationLink>
                 )}
               </PaginationItem>
             );
           })}
-</div>
+        </div>
         <PaginationItem className="pagination-control next">
           <PaginationNext
             onClick={() => !isLastPage && handlePageChange(currentPage + 1)}

@@ -20,10 +20,9 @@ const Coins = async ({ searchParams }: NextPageProps) => {
     sparkline: false,
   });
 
-
   const hasMorePages = coinsData.length === perPage;
 
-  const totalPageEST = currentPage >= 100 ? Math.ceil(currentPage/100) *100 + 100 : 100;
+  const totalPageEST = currentPage >= 100 ? Math.ceil(currentPage / 100) * 100 + 100 : 100;
 
   const columns: DataTableColumn<CoinMarketData>[] = [
     {
@@ -96,7 +95,11 @@ const Coins = async ({ searchParams }: NextPageProps) => {
       <div className="content">
         <h4>All Coins</h4>
         <DataTable columns={columns} data={coinsData} rowKey={(coin) => coin.id} />
-        <CoinPagination currentPage={currentPage} totalPages={totalPageEST} hasMorePages={hasMorePages} />
+        <CoinPagination
+          currentPage={currentPage}
+          totalPages={totalPageEST}
+          hasMorePages={hasMorePages}
+        />
       </div>
     </main>
   );
