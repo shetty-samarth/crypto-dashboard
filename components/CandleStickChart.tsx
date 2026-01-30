@@ -106,7 +106,6 @@ const CandleStickChart = ({
               key={value}
               className={period === value ? 'config-button-active' : 'config-button'}
               onClick={() => {
-                console.log(`${value} clicked`);
                 handlePeriodChange(value);
               }}
               disabled={isPending}
