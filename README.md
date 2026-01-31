@@ -34,3 +34,39 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+################################################# Readme ##################################
+
+# Crypto Market Tracker
+
+A personal project built with **Next.js 16** that uses the **CoinGecko API** to display real-time cryptocurrency market data. This project focuses on applying modern Next.js patterns, server-side data fetching, and clean application structure.
+
+## About the Project
+
+The application provides essential cryptocurrency market information such as pricing, market capitalization, volume, and price changes. The primary goal is to practice building a performant and maintainable frontend using Next.js App Router features.
+
+## Features
+
+- Real-time cryptocurrency pricing
+- Market capitalization and 24-hour volume data
+- Price change indicators
+- Server-side data fetching with caching
+- Responsive layout
+
+## Built With
+
+- Next.js 16 (App Router)
+- TypeScript
+- CoinGecko Public API
+- CSS / Tailwind CSS
+- Vercel (deployment)
+
+## Getting Started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/shetty-samarth/crypto-dashboard.git
+cd crypto-market-tracker
