@@ -6,4 +6,13 @@ export const useCoinGekoWebsocket = ({coinId, poolId, liveInterval}: UseCoinGeck
 
     const [price, setPrice] = useState<ExtendedPriceData | null>(null);
     const [trade, setTrade] = useState<Trade[]>([]);
+    const [ohlcv, setOhlcv] = useState<OHLCData | null>(null);
+    const [isConnected, setIsConnected] = useState<boolean>(false);
+
+    return {
+        price,
+        trades: trade,
+        ohlcv,
+        isConnected,
+    };
 }   
