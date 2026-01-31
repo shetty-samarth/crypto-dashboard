@@ -13,7 +13,7 @@ const Header = () => {
         <Link href="/">
           <Image src="/logo.svg" alt="Crypto Tracker Logo" width={200} height={100} />
         </Link>
-        <nav>
+        <nav className="nav-links flex gap-6">
           <Link
             href="/"
             className={cn('nav-link', { 'is-active': pathname === '/', 'is-home': true })}
