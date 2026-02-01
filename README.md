@@ -35,8 +35,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-
-
 ################################################# Readme ##################################
 
 # Crypto Market Tracker
@@ -73,13 +71,14 @@ cd crypto-market-tracker
 ```
 
 ## Install dependencies
- npm install
+
+npm install
 
 ## Run the development server
- npm run dev
+
+npm run dev
 
 The application will be available at http://localhost:3000
-
 
 ## CoinGecko API
 
@@ -92,6 +91,7 @@ Official CoinGecko API documentation is available at:
 https://www.coingecko.com/en/api/documentation
 
 The documentation provides details on:
+
 - Available endpoints
 - Request parameters
 - Rate limits
@@ -99,6 +99,4 @@ The documentation provides details on:
 
 Commonly used endpoint in this project:
 
-### To be added ###
-
-
+### To be added
