@@ -35,8 +35,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-
-
 ################################################# Readme ##################################
 
 # Crypto Market Tracker
@@ -70,3 +68,35 @@ Clone the repository:
 ```bash
 git clone https://github.com/shetty-samarth/crypto-dashboard.git
 cd crypto-market-tracker
+```
+
+## Install dependencies
+
+npm install
+
+## Run the development server
+
+npm run dev
+
+The application will be available at http://localhost:3000
+
+## CoinGecko API
+
+This project uses the **CoinGecko API** to retrieve cryptocurrency market data such as prices, market capitalization, and volume.
+
+### API Documentation
+
+Official CoinGecko API documentation is available at:
+
+https://www.coingecko.com/en/api/documentation
+
+The documentation provides details on:
+
+- Available endpoints
+- Request parameters
+- Rate limits
+- Response formats
+
+Commonly used endpoint in this project:
+
+### To be added
