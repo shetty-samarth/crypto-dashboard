@@ -1,18 +1,67 @@
 import { fetcher } from '@/lib/coingeko.actions';
-import React from 'react';
+import { formatCurrency } from '@/lib/utils';
 
-const page = async ({ params }: NextPageProps) => {
-  const { id } = await params;
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
 
-  let coinData: CoinMarketData | null = null;
+type CoinDetail = {
+  label: string;
+  value: string;
+  link?: string;
+  linkText?: string;
+};
+
+const page = async ({ params }: PageProps) => {
+  const { id } = params;
+
+  let coinData: CoinDetailsData | null = null;
+  let coinDetails: CoinDetail[] = [];
   let error: string | null = null;
 
   try {
-    // The request happens here.
-    // If you have a loading.tsx file, Next.js shows it automatically while this awaits.
-    coinData = await fetcher<CoinMarketData>(`/coins/${id}`, {
+    coinData = await fetcher<CoinDetailsData>(`/coins/${id}`, {
       dex_pair_format: 'contract_address',
     });
+
+    if (!coinData) {
+      throw new Error('No coin data returned');
+    }
+
+    coinDetails = [
+      {
+        label: 'Market Cap',
+        value: formatCurrency(coinData.market_data.market_cap.usd),
+      },
+      {
+        label: 'Market Cap Rank',
+        value: `# ${coinData.market_cap_rank}`,
+      },
+      {
+        label: 'Total Volume',
+        value: formatCurrency(coinData.market_data.total_volume.usd),
+      },
+      {
+        label: 'Website',
+        value: '-',
+        link: coinData.links.homepage?.[0],
+        linkText: 'Homepage',
+      },
+      {
+        label: 'Explorer',
+        value: '-',
+        link: coinData.links.blockchain_site?.[0],
+        linkText: 'Explorer',
+      },
+      {
+        label: 'Community',
+        value: '-',
+        link: coinData.links.subreddit_url,
+        linkText: 'Community',
+      },
+    ];
   } catch (e) {
     console.error('Failed to fetch coin data:', e);
     error = 'Failed to load coin details. Please try again later.';
@@ -22,7 +71,6 @@ const page = async ({ params }: NextPageProps) => {
     return <main className="p-10 text-red-500">{error}</main>;
   }
 
-  // Fallback UI if data is still null for some reason
   if (!coinData) {
     return <main className="p-10 text-gray-500">Loading...</main>;
   }
@@ -31,15 +79,16 @@ const page = async ({ params }: NextPageProps) => {
     <main id="coin-details-page">
       <section className="primary">
         <h1 className="text-3xl font-bold">{coinData.name}</h1>
-        <p>Trend Overview</p>
-        <p>Recent Trades</p>
-        <p>Exchange Listing</p>
       </section>
+
       <section className="secondary">
         <h4>Coin Details</h4>
         <ul className="details-grid">
-          {/* Example detail item */}
-          <li>Symbol: {coinData.symbol?.toUpperCase()}</li>
+          {coinDetails.map((item) => (
+            <li key={item.label}>
+              {item.label}: {item.value}
+            </li>
+          ))}
         </ul>
       </section>
     </main>
