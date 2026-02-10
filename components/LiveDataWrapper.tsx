@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const LiveDataWrapper = () => {
-  return (
-    <div>LiveDataWrapper</div>
-  )
-}
+  return <div>LiveDataWrapper</div>;
+};
 
-export default LiveDataWrapper
+export default LiveDataWrapper;
