@@ -1,4 +1,3 @@
-import React from 'react';
 import { fetcher } from '@/lib/coingeko.actions';
 import Image from 'next/image';
 import Link from 'next/link';
